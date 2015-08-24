@@ -15,3 +15,5 @@ Route::get('/', [
     'uses' => 'IndexController@index',
     'as' => 'index'
 ]);
+
+Route::post('upload', 'IndexController@upload');
