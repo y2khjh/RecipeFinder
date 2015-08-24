@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace RecipeFinder\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

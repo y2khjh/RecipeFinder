@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace RecipeFinder\Http\Controllers\Auth;
 
-use App\User;
+use RecipeFinder\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use RecipeFinder\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

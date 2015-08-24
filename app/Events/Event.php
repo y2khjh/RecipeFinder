@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace RecipeFinder\Events;
 
 abstract class Event
 {

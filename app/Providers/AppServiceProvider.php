@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace RecipeFinder\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

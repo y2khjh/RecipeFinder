@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace RecipeFinder\Jobs;
 
 use Illuminate\Bus\Queueable;
 

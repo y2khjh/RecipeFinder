@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: RecipeFinder
+        psr4_prefix: RecipeFinder
         src_path: app
