@@ -26,4 +26,12 @@ class IndexControllerTest extends TestCase
             ->press('submit')
             ->see('test food');
     }
+
+    public function testFindRecipe() {
+        $defaultJson = file_get_contents(storage_path() . DIRECTORY_SEPARATOR . 'default_json.js');
+        $this->visit('/')
+            ->type($defaultJson, 'json')
+            ->press('submit')
+            ->see('salad sandwich');
+    }
 }

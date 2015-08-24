@@ -70,6 +70,11 @@
         div.cell.amount, div.cell.unit, div.cell.use_by {
             width: 30px;
         }
+
+        .json {
+            width: 350px;
+            height: 350px;
+        }
     </style>
 </head>
 <body>
@@ -93,8 +98,17 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-        </div>
-
+        </div><br/>
+        <div class="section">
+            <div class="title">Recipe JSON</div>
+            <div class="body">
+                <form action="<?php echo url('find_recipe') ?>" method="post">
+                    <textarea class="json" name="json" placeholder="Copy and Paste the Json data to here"><?php echo isset($json) ? e($json) : e($defaultJson) ?></textarea><br/>
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <input type="submit" value="Submit" name="submit">
+                </form>
+            </div>
+        </div><br/>
     </div>
 </div>
 </body>

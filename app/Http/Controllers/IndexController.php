@@ -18,6 +18,7 @@ class IndexController extends Controller
     public function index() {
         $view = view('index');
         $view->foodsInFridge = Fridge::all();
+        $view->defaultJson = file_get_contents(storage_path() . DIRECTORY_SEPARATOR . 'default_json.js');
         return $view;
     }
 
@@ -47,5 +48,10 @@ class IndexController extends Controller
                 return Redirect::to('/');
             }
         }
+    }
+
+    public function findRecipe() {
+        $input = json_decode(Input::get('json', '[]'), true);
+        var_dump($input);
     }
 }
