@@ -28,7 +28,7 @@ class Fridge extends Model
 
     public function scopeGetGoodItemCountAndUseBy($query, $item, $unit) {
         return $query->selectRaw('sum(amount) as amount, min(use_by) as use_by')
-            ->whereItem($item)->whereUnit($unit)->where('use_by', '>', date('d/m/Y'))->groupBy('item')
+            ->whereItem($item)->whereUnit($unit)->where("strftime('%d/%m/%Y', use_by)", '>', date('Y-m-d'))->groupBy('item')
             ->first();
     }
 }

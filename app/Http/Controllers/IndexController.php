@@ -36,7 +36,7 @@ class IndexController extends Controller
         $validator = Validator::make($file, $rules);
 
         if ($validator->fails()) {
-            return Redirect::to('/');
+            return Redirect::to('/')->with('error', 'Invalid CSV File');
         } else {
             if ($file['csvfile']->isValid()) {
                 Fridge::truncate();
@@ -50,7 +50,7 @@ class IndexController extends Controller
                 fclose($csv);
                 return Redirect::to('/');
             }  else {
-                return Redirect::to('/');
+                return Redirect::to('/')->with('error', 'Invalid CSV File');
             }
         }
     }
@@ -65,7 +65,7 @@ class IndexController extends Controller
                 $allFound = true;
                 foreach ($item['ingredients'] as $ingredient) {
                     $fridgeStock = $this->fridgeCheck($ingredient['item'], $ingredient['unit']);
-                    if ($fridgeStock instanceof Fridge && $fridgeStock->amount >= $ingredient['amount']) {
+                    if ($fridgeStock instanceof Fridge && $fridgeStock->amount >= intval($ingredient['amount'])) {
                         $reciptIngredients[] = new Ingredient(
                             $ingredient['item'],
                             $ingredient['amount'],
@@ -86,10 +86,10 @@ class IndexController extends Controller
             if ($recipeOption->getIterator()->count()) {
                 return Redirect::to('/')->withInput()->with('recipe_name', $recipeOption->getIterator()->offsetGet(0)->name);
             } else {
-                return Redirect::to('/')->withInput()->with('recipe_name', 'Order Takeout');
+                return Redirect::to('/')->withInput()->with('error', 'Order Takeout');
             }
         } else {
-            return Redirect::to('/')->withInput();
+            return Redirect::to('/')->withInput()->with('error', 'Invalid Recipe JSON');
         }
     }
 

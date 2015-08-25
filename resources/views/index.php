@@ -76,11 +76,15 @@
             height: 350px;
         }
 
+        .red {
+            background-color: #ff6666;
+        }
+
         .green {
             background-color: #5cb85c;
         }
 
-        .recipe {
+        .error, .recipe {
             font-size: 28px;
         }
     </style>
@@ -107,6 +111,19 @@
                 <?php endforeach; ?>
             </div>
         </div><br/>
+        <?php if (null !== $error = Session::get('error')): ?>
+            <div class="section red">
+                <div class="title">Error</div>
+                <div class="body error"><?php echo $error ?></div>
+            </div><br/>
+        <?php endif; ?>
+        <?php if (null !== $recipe_name = Session::get('recipe_name')): ?>
+        <div class="section green">
+            <div class="title">Recipe Found</div>
+            <div class="body recipe"><?php echo $recipe_name ?></div>
+            <input type="hidden" id="found_recipe" value="<?php echo $recipe_name ?>" />
+        </div><br/>
+        <?php endif; ?>
         <div class="section">
             <div class="title">Recipe JSON</div>
             <div class="body">
@@ -117,12 +134,6 @@
                 </form>
             </div>
         </div><br/>
-        <?php if (null !== $recipe_name = Session::get('recipe_name')): ?>
-        <div class="section green">
-            <div class="title">Recipe Found</div>
-            <div class="body recipe"><?php echo $recipe_name ?></div>
-        </div>
-        <?php endif; ?>
     </div>
 </div>
 </body>
