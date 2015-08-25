@@ -8,7 +8,7 @@
   * Mbstring PHP Extension
   * Tokenizer PHP Extension
   * Composer
-  
+  * 
   A Linux/Mac is recommended. If you are using Windows, the installation steps may different.
 
 ## Installation
@@ -25,7 +25,7 @@
   * cd ~/RecipeFinder
   * php artisan serve
   * in your browser open http://localhost:8000/
-  
+  *
   You should see the Recipe Finder form has been loaded and there are some testing data already in the Fridge database.
   You can upload a CSV file to replace all the existing testing Fridge data.
 
@@ -33,4 +33,5 @@
 
   * cd ~/RecipeFinder
   * phpunit
+  * 
 
