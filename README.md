@@ -8,6 +8,8 @@
   * Mbstring PHP Extension
   * Tokenizer PHP Extension
   * Composer
+  
+  A Linux/Mac is recommended. If you are using Windows, the installation steps may different.
 
 ## Installation
 
@@ -15,6 +17,7 @@
   * cd ~/RecipeFinder
   * curl -sS https://getcomposer.org/installer | php
   * php composer.phar install && php composer.phar update
+  * cp .env.example .env
   * php artisan key:generate
 
 ## Run it (without web server e.g. Apache, Ngnix)
