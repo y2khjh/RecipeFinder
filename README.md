@@ -13,7 +13,8 @@
 
   * git clone git@github.com:y2khjh/RecipeFinder.git ~/RecipeFinder
   * cd ~/RecipeFinder
-  * composer install && composer update
+  * curl -sS https://getcomposer.org/installer | php
+  * php composer.phar install && php composer.phar update
   * php artisan key:generate
 
 ## Run it (without web server e.g. Apache, Ngnix)
@@ -24,3 +25,9 @@
   
   You should see the Recipe Finder form has been loaded and there are some testing data already in the Fridge database.
   You can upload a CSV file to replace all the existing testing Fridge data.
+
+## Unit Testing
+
+  * cd ~/RecipeFinder
+  * phpunit
+
