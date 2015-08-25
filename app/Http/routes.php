@@ -18,3 +18,6 @@ Route::get('/', [
 
 Route::post('upload', 'IndexController@upload');
 Route::post('find_recipe', 'IndexController@findRecipe');
+Route::get('find_recipe', function(){
+    return Redirect::to('/');
+});

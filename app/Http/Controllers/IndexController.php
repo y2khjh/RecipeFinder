@@ -2,9 +2,13 @@
 namespace RecipeFinder\Http\Controllers;
 
 use Input;
+use RecipeFinder\Ingredient;
+use RecipeFinder\Recipe;
+use RecipeFinder\RecipeOption;
 use Validator;
 use Redirect;
 use Session;
+use Request;
 
 use RecipeFinder\Fridge;
 
@@ -18,6 +22,7 @@ class IndexController extends Controller
     public function index() {
         $view = view('index');
         $view->foodsInFridge = Fridge::all();
+        $view->json = Request::old('json_data');
         $view->defaultJson = file_get_contents(storage_path() . DIRECTORY_SEPARATOR . 'default_json.js');
         return $view;
     }
@@ -51,7 +56,44 @@ class IndexController extends Controller
     }
 
     public function findRecipe() {
-        $input = json_decode(Input::get('json', '[]'), true);
-        var_dump($input);
+        $recipeOption = new RecipeOption();
+        $json = Input::get('json_data');
+        $input = json_decode($json, true);
+        if ($input) {
+            foreach ($input as $item) {
+                $reciptIngredients = array();
+                $allFound = true;
+                foreach ($item['ingredients'] as $ingredient) {
+                    $fridgeStock = $this->fridgeCheck($ingredient['item'], $ingredient['unit']);
+                    if ($fridgeStock instanceof Fridge && $fridgeStock->amount >= $ingredient['amount']) {
+                        $reciptIngredients[] = new Ingredient(
+                            $ingredient['item'],
+                            $ingredient['amount'],
+                            $ingredient['unit'],
+                            date_create_from_format('d/m/Y', $fridgeStock->use_by)
+                        );
+                    } else {
+                        $allFound = false;
+                    }
+                }
+
+                if ($allFound) {
+                    $recipe = new Recipe($item['name'], $reciptIngredients);
+                    $recipeOption->add($recipe);
+                }
+            }
+
+            if ($recipeOption->getIterator()->count()) {
+                return Redirect::to('/')->withInput()->with('recipe_name', $recipeOption->getIterator()->offsetGet(0)->name);
+            } else {
+                return Redirect::to('/')->withInput()->with('recipe_name', 'Order Takeout');
+            }
+        } else {
+            return Redirect::to('/')->withInput();
+        }
+    }
+
+    private function fridgeCheck($item, $unit) {
+        return Fridge::getGoodItemCountAndUseBy($item, $unit);
     }
 }

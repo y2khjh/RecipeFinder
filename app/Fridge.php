@@ -26,8 +26,9 @@ class Fridge extends Model
         return $query->where('use_by', '>', date('d/m/Y'));
     }
 
-    public function scopeInStock($query, $amount, $unit)
-    {
-        return $query->where('amount', '>=', $amount)->whereUnit($unit);
+    public function scopeGetGoodItemCountAndUseBy($query, $item, $unit) {
+        return $query->selectRaw('sum(amount) as amount, min(use_by) as use_by')
+            ->whereItem($item)->whereUnit($unit)->where('use_by', '>', date('d/m/Y'))->groupBy('item')
+            ->first();
     }
 }

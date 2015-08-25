@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laravel</title>
+    <title>Recipe Finder</title>
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -75,6 +75,14 @@
             width: 350px;
             height: 350px;
         }
+
+        .green {
+            background-color: #5cb85c;
+        }
+
+        .recipe {
+            font-size: 28px;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +92,7 @@
         <form action="<?php echo url('upload') ?>" method="post" enctype="multipart/form-data">
             <input type="file" name="csvfile" />
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-            <input type="submit" value="Upload CSV" name="submit">
+            <input type="submit" value="Upload CSV" name="upload_csvfile">
         </form><br/>
         <div class="section">
             <div class="title">Food in Fridge</div>
@@ -103,12 +111,18 @@
             <div class="title">Recipe JSON</div>
             <div class="body">
                 <form action="<?php echo url('find_recipe') ?>" method="post">
-                    <textarea class="json" name="json" placeholder="Copy and Paste the Json data to here"><?php echo isset($json) ? e($json) : e($defaultJson) ?></textarea><br/>
+                    <textarea class="json" name="json_data" placeholder="Copy and Paste the Json data to here"><?php echo isset($json) ? e($json) : e($defaultJson) ?></textarea><br/>
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                    <input type="submit" value="Submit" name="submit">
+                    <input type="submit" value="Submit" name="submit_recipes">
                 </form>
             </div>
         </div><br/>
+        <?php if (null !== $recipe_name = Session::get('recipe_name')): ?>
+        <div class="section green">
+            <div class="title">Recipe Found</div>
+            <div class="body recipe"><?php echo $recipe_name ?></div>
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 </body>

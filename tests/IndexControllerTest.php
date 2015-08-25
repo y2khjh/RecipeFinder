@@ -23,15 +23,15 @@ class IndexControllerTest extends TestCase
         $testCsv = storage_path() . DIRECTORY_SEPARATOR . 'test_csv.csv';
         $this->visit('/')
             ->attach($testCsv, 'csvfile')
-            ->press('submit')
+            ->press('upload_csvfile')
             ->see('test food');
     }
 
     public function testFindRecipe() {
         $defaultJson = file_get_contents(storage_path() . DIRECTORY_SEPARATOR . 'default_json.js');
         $this->visit('/')
-            ->type($defaultJson, 'json')
-            ->press('submit')
+            ->type($defaultJson, 'json_data')
+            ->press('submit_recipes')
             ->see('salad sandwich');
     }
 }
